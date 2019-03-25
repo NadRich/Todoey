@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
 
-    let itemArray = ["Find Mike", "Buy Aggos", "Destory Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Aggos", "Destory Demogorgon"]
     
     
     
@@ -35,7 +35,9 @@ class ToDoListViewController: UITableViewController {
         return cell
 //_________________________________________________________________________________
     }
-//Tableview Delegate Methods for what happens when a cell is pushed, making it blink and then putting a checkmark and if you push again the checkmark goes away.
+
+    //MARK - Tableview Delegate Methods
+    //Tableview Delegate Methods for what happens when a cell is pushed, making it blink and then putting a checkmark and if you push again the checkmark goes away.
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(itemArray[indexPath.row])
@@ -54,6 +56,32 @@ class ToDoListViewController: UITableViewController {
         
     }
     
+   //MARK - Add New Items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Ass New Todoey Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen once the user clicks the Add Item button on our UIAlert
+            
+           self.itemArray.append(textField.text!)
+            
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new Item"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     
 }
